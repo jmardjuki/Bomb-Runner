@@ -14,11 +14,7 @@ const server = express()
 
 const io = socketIO(server);
 
-// Heroku doesn't allow websocket
-io.configure(function () {  
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
+// Heroku doesn't allow websocket?
 
 var bomberPresent = false;
 var runnerPresent = false;
