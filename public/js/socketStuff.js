@@ -45,7 +45,7 @@ socket.on('receiveRoles', function (data) {
 			removeTitle();
 			// Remove everything on top
 			// Load map
-			initializeMap();
+			initMap();
 			// Load geoLocation
 			runnerRun(socket);
 
@@ -56,7 +56,7 @@ socket.on('receiveRoles', function (data) {
 		socket.on('startDaGame', function (data2) {
 			removeTitle();
 			// Remove everything on top
-			initializeMap();
+			initMap();
 			// Load map
 			console.log("Starting game now P");			
 		});
