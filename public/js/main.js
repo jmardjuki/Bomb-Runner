@@ -47,7 +47,7 @@ function runnerRun(socket) {
 	getLocationUpdate();
 	socketGlo = socket;
 	socket.on('winGG', function (data) {
-		alert("GG!");
+		alert("The bomber destroyed you! Game Over!");
 	});	
 
 }
@@ -122,7 +122,7 @@ function bomberMap(){
 		socketGlo.emit('bomberCompare', data);
 
 		socket.on('winGG', function (data) {
-			alert("You hit the target! Game is finish. GG!");
+			alert("You have destroyed the runner! You win!");
 	  });	
 
 		socket.on('bomberBomb', function (data) {
