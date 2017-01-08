@@ -4,6 +4,9 @@ var map;
 var runnerLat;
 var runnerLng;
 
+// Hide the timer at first
+$("#myTimer").hide();
+
 function initMap() {
 	map = new GMaps({
 	  div: '#map',
@@ -38,6 +41,15 @@ function initMapBomber(socket) {
   		  bomberMap();
   	}
   });
+	$("#myTimer").show();
+	socket.on('daTimer', function (data) {
+		if (data == "zero") {
+			alert("Time out! You lose");
+		}
+		else {
+			$("#disTimer").text(data);
+		}
+	});	  
 }
 
 var socketGlo;
@@ -46,6 +58,15 @@ function runnerRun(socket) {
 	console.log("runnerRun called")
 	getLocationUpdate();
 	socketGlo = socket;
+	$("#myTimer").show();
+	socket.on('daTimer', function (data) {
+		if (data == "zero") {
+			alert("Hidden well! GG!");
+		}
+		else {
+			$("#disTimer").text(data);
+		}
+	});		
 	socket.on('winGG', function (data) {
 		alert("The bomber destroyed you! Game Over!");
 	});	
@@ -119,8 +140,7 @@ function bomberMap(){
 	  var targetlat = event.latLng.lat();
 	  var targetlng = event.latLng.lng();
 		var data = {lat: targetlat, lng: targetlng};
-		socketGlo.emit('bomberCompare', data);
-
+		socketGlo.emit('bomberCompare', data);	
 		socket.on('winGG', function (data) {
 			alert("You have destroyed the runner! You win!");
 	  });	

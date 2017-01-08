@@ -21,6 +21,32 @@ var runnerPresent = false;
 
 var runnerLoc = {lat: NaN, lng: NaN};
 
+var sTime;
+var countDown;
+var counter;
+
+// Timer
+function initializeTimer() {
+	sTime = new Date().getTime();
+	countDown = 20;
+}
+
+function updateTime() {
+    var cTime = new Date().getTime();
+    var diff = cTime - sTime;
+    var seconds = countDown - Math.floor(diff / 1000);
+    if (seconds >= 0) {
+        var minutes = Math.floor(seconds / 60);
+        seconds -= minutes * 60;
+        io.sockets.emit('daTimer', seconds);
+        console.log(seconds);
+    } else {
+        io.sockets.emit('daTimer', "zero");
+        clearInterval(counter);
+    }
+}
+
+
 io.on('connection', function (socket) {
 	socket.on('disconnect', function (data) {
   	console.log('Client disconnected')
@@ -35,6 +61,10 @@ io.on('connection', function (socket) {
   			// if both ok, tell both to start
   			if ( bomberPresent == true ) {
   				io.sockets.emit('startDaGame', "true");
+  				//timer
+  				initializeTimer();
+  				updateTime();
+					counter = setInterval(updateTime, 500);
   			}
   		} else {
   			// Later if possible; if already has a runner
@@ -47,6 +77,10 @@ io.on('connection', function (socket) {
   			// if both ok, tell both to start
   			if ( runnerPresent == true ) {
   				io.sockets.emit('startDaGame', "true");
+  				//timer
+  				initializeTimer();
+  				updateTime();
+					counter = setInterval(updateTime, 500);
   			}  			
   		} else {
 
