@@ -1,4 +1,42 @@
 #map {
-	height: 400px;
+	height: 600px;
 	width: 100%;
+}
+
+h1{
+	text-align: center;
+	font-size: 100px;
+	margin-top: 0.5em;
+}
+
+.role-button{
+	padding-left: 13em;
+}
+
+.role-button > .button-dropdown > .button{
+	padding-top: 35px;
+	padding-bottom: 35px;
+	width: 500px;
+	font-size: 50px;
+}
+
+#runner {
+	font-size: 35px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+#bomber {
+	font-size: 35px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+#startButton{
+	margin-top: 3em;
+	margin-left: 6.75em;
+	font-size: 50px;
+	padding-top:55px;
+	width: 265px;
+	height: 200px;
 }
