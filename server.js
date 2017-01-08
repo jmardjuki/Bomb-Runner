@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
   			socket.emit('receiveRoles', "runner");
   			// if both ok, tell both to start
   			if ( bomberPresent == true ) {
-  				socket.emit('startDaGame', "true");
+  				io.socket.emit('startDaGame', "true");
   			}
   		} else {
   			// Later if possible; if already has a runner
@@ -46,7 +46,7 @@ io.on('connection', function (socket) {
   			socket.emit('receiveRoles', "bomber");
   			// if both ok, tell both to start
   			if ( runnerPresent == true ) {
-  				io.sockets.emit('startDaGame', "isTrue");
+  				io.sockets.emit('startDaGame', "true");
   			}  			
   		} else {
 
@@ -58,9 +58,17 @@ io.on('connection', function (socket) {
   });
   // Keep updating the location
   socket.on('runnerLocation', function (data) {
-  	console.log(data);
+
+  	console.log( "=====>" + data);
   	runnerLoc.lat = data.lat;
   	runnerLoc.lng = data.lng;
+  });
+
+  socket.on('bomberCompare', function (data) {
+  	// Check radius, send colour only
+  	// Send back the gps coordinate to both with the colour
+  	io.socket.emit('bomberBomb');
+
   });
 
 });
