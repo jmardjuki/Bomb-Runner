@@ -22,7 +22,11 @@ var runnerPresent = false;
 var runnerLoc = {lat: NaN, lng: NaN};
 
 io.on('connection', function (socket) {
-	socket.on('disconnect', () => console.log('Client disconnected'));	
+	socket.on('disconnect', function (data) {
+  	console.log('Client disconnected')
+  	bomberPresent = false;
+  	runnerPresent = false;
+  });	
   socket.on('rolez', function (data) {
   	if (data == "runner") {
   		if (runnerPresent == false) {

@@ -28,7 +28,8 @@ var watchID, geoLoc;
 function showLocation(runnerposition){
 	runnerLat = runnerposition.coords.latitude;
 	runnerLng = runnerposition.coords.longitude;
-	var data = JSON.stringify({lat: runnerLat, lng: runnerLng});	
+	var data = JSON.stringify({lat: runnerLat, lng: runnerLng});
+	console.log(data);
 	socketGlo.emit('runnerLocation', data);
 }
 
@@ -44,7 +45,7 @@ function getLocationUpdate(){
 	if (navigator.geolocation){
 		var options = {timeout:10000};
 		geoLoc = navigator.geolocation;
-		watchID = geoLoc.watchPosition(showLocation, error, options);
+		watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
 	}
 	else{
 		alert("Sorry, browser does not support geolocation!");
