@@ -71,7 +71,46 @@ io.on('connection', function (socket) {
   socket.on('bomberCompare', function (data) {
   	// Check radius, send colour only
   	// Send back the gps coordinate to both with the colour
-  	io.sockets.emit('bomberBomb', "huehue");
+		var bomberLoc = {lat: NaN, lng: NaN};
+  	bomberLoc.lat = data.lat;
+  	bomberLoc.lng = data.lng;
+
+		var blastRadius = 50;
+		var blastBorder = "#0000FF";
+		var blastColor = "#0000FF";
+
+		var rad = function(x) {
+			return x * Math.PI / 180;
+		}; 
+
+		var getDistance = function(p1, p2) {
+			var R = 6378137; // Earth’s mean radius in meter
+			var dLat = rad(p2.lat - p1.lat);
+			var dLong = rad(p2.lng - p1.lng);
+			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+				Math.sin(dLong / 2) * Math.sin(dLong / 2);
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			var d = R * c;
+			return d; // returns the distance in meter
+		};
+
+		var distance = getDistance(bomberLoc, runnerLoc);
+
+		if ( (distance - blastRadius) < 500 && (distance - blastRadius) > 300){
+			blastBorder = "#FFFF00";
+		  blastColor = "#FFFF00";
+		} else if ( (distance - blastRadius) < 300 && (distance - blastRadius) < 500){
+		 	blastBorder = "#FCA500";
+		  blastColor = "#FCA500";
+		} else if (distance < blastRadius && (distance - blastRadius) < 50){
+		 	blastBorder = "#FF0000";
+		  blastColor = "#FF0000";
+		}
+
+		var replyData = {lat: bomberLoc.lat, lng: bomberLoc.lng, radius: blastRadius, colour: blastColor, border1: blastBorder};
+
+  	io.sockets.emit('bomberBomb', replyData);
 
   });
 

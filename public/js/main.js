@@ -5,7 +5,7 @@ var runnerLat;
 var runnerLng;
 
 function initMap() {
-	new GMaps({
+	map = new GMaps({
 	  div: '#map',
 	  lat: 49.2827,
 	  lng: -123.1216
@@ -25,7 +25,7 @@ function initMap() {
 
             var mapCanvas = document.getElementById("map");
   			    var mapOptions = {center: myCenter, zoom: 15};
-            var map = new google.maps.Map(mapCanvas, mapOptions);
+            map = new google.maps.Map(mapCanvas, mapOptions);
             var marker = new google.maps.Marker({position:myCenter});
             marker.setMap(map);
             
@@ -62,6 +62,7 @@ function initMapBomber(socket) {
   	}
   	else {
   		  map.setCenter(bombLat, bombLng);
+  		  bomberMap();
   	}
   });
 }
@@ -85,8 +86,6 @@ function showLocation(runnerposition){
 	console.log(data);
 	socketGlo.emit('runnerLocation', data);
 
-
-
 }
 
 function errorHandler(err){
@@ -102,8 +101,58 @@ function getLocationUpdate(){
 		var options = {timeout:10000};
 		geoLoc = navigator.geolocation;
 		watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
+		socket.on('bomberBomb', function (data) {
+	  	console.log('bomber blast!')
+			var targetCenter = new google.maps.LatLng(data.lat,data.lng);
+			var blastRadius = data.radius;
+			var blastBorder = data.border1;
+			var blastColor = data.colour;
+
+			map.drawCircle({
+		    center: targetCenter,
+		    radius: blastRadius,
+		    strokeColor: blastBorder,
+	      strokeOpacity: 0.8,
+	      strokeWeight: 2,
+	      fillColor: blastColor,
+	      fillOpacity: 0.2
+		  });			
+	  });	
+
 	}
 	else{
 		alert("Sorry, browser does not support geolocation!");
 	}
+}
+
+
+function bomberMap(){      
+	GMaps.on('click', map, function(event) {
+	  var targetlat = event.latLng.lat();
+	  var targetlng = event.latLng.lng();
+		var data = {lat: targetlat, lng: targetlng};
+		socketGlo.emit('bomberCompare', data);
+
+		socket.on('bomberBomb', function (data) {
+	  	console.log('bomber blast!')
+			var targetCenter = new google.maps.LatLng(data.lat,data.lng);
+			var blastRadius = data.radius;
+			var blastBorder = data.border1;
+			var blastColor = data.colour;
+
+			map.drawCircle({
+		    center: targetCenter,
+		    radius: blastRadius,
+		    strokeColor: blastBorder,
+	      strokeOpacity: 0.8,
+	      strokeWeight: 2,
+	      fillColor: blastColor,
+	      fillOpacity: 0.2
+		  });			
+	  });	
+
+	  
+	  console.log(event.latLng.lat() + "," + event.latLng.lng());
+  });
+
 }
