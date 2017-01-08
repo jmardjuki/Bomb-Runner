@@ -1,15 +1,45 @@
 "use strict"
 
+var map;
+var runnerLat;
+var runnerLng;
+
 function initMap() {
 	new GMaps({
 	  div: '#map',
-	  lat: -12.043333,
-	  lng: -77.028333
-	});
+	  lat: 49.2827,
+	  lng: -123.1216
+	});		  
+
+	if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+
+          	var myCenter;
+
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            var myCenter = new google.maps.LatLng(pos.lat,pos.lng);
+
+            var mapCanvas = document.getElementById("map");
+  			    var mapOptions = {center: myCenter, zoom: 15};
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({position:myCenter});
+            marker.setMap(map);
+            
+           }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
 }
 
-var runnerLat;
-var runnerLng;
 
 var socketGlo;
 
@@ -20,8 +50,6 @@ function runnerRun(socket) {
 }
 // Gameplay Mechanics //
 
-var map;
-
 // watchPosition function //
 var watchID, geoLoc;
 
@@ -31,6 +59,9 @@ function showLocation(runnerposition){
 	var data = JSON.stringify({lat: runnerLat, lng: runnerLng});
 	console.log(data);
 	socketGlo.emit('runnerLocation', data);
+
+
+
 }
 
 function errorHandler(err){
