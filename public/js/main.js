@@ -40,6 +40,31 @@ function initMap() {
 
 }
 
+var bombLat;
+var bombLng;
+
+
+function initMapBomber(socket) {
+	socketGlo = socket;
+	map = new GMaps({
+	  div: '#map',
+	  lat: 49.2827,
+	  lng: -123.1216
+	});
+	socketGlo.emit('bomberInit', "init");
+  socketGlo.on('bomberInitReply', function (data) {
+  	console.log( "coordinates of runner =====>" + data);
+  	var jsonObj = $.parseJSON(data);
+  	bombLat = jsonObj.lat;
+  	bombLng = jsonObj.lng;
+  	if ( isNaN(bombLat) || isNaN(bombLng) ) {
+  			socketGlo.emit('bomberInit', "init");
+  	}
+  	else {
+  		  map.setCenter(bombLat, bombLng);
+  	}
+  });
+}
 
 var socketGlo;
 
@@ -56,7 +81,7 @@ var watchID, geoLoc;
 function showLocation(runnerposition){
 	runnerLat = runnerposition.coords.latitude;
 	runnerLng = runnerposition.coords.longitude;
-	var data = JSON.stringify({lat: runnerLat, lng: runnerLng});
+	var data = {lat: runnerLat, lng: runnerLng};
 	console.log(data);
 	socketGlo.emit('runnerLocation', data);
 

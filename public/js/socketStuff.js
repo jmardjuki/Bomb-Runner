@@ -56,7 +56,7 @@ socket.on('receiveRoles', function (data) {
 		socket.on('startDaGame', function (data2) {
 			removeTitle();
 			// Remove everything on top
-			initMap();
+			initMapBomber(socket);
 			// Load map
 			console.log("Starting game now P");			
 		});
