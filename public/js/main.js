@@ -11,33 +11,6 @@ function initMap() {
 	  lng: -123.1216
 	});		  
 
-	if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-
-          	var myCenter;
-
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-            var myCenter = new google.maps.LatLng(pos.lat,pos.lng);
-
-            var mapCanvas = document.getElementById("map");
-  			    var mapOptions = {center: myCenter, zoom: 15};
-            map = new google.maps.Map(mapCanvas, mapOptions);
-            var marker = new google.maps.Marker({position:myCenter});
-            marker.setMap(map);
-            
-           }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-
 }
 
 var bombLat;
@@ -85,6 +58,17 @@ function showLocation(runnerposition){
 	var data = {lat: runnerLat, lng: runnerLng};
 	console.log(data);
 	socketGlo.emit('runnerLocation', data);
+
+	console.log("test");
+
+	map.removeMarkers();
+
+	map.addMarker({
+	  lat: runnerLat,
+	  lng: runnerLng,
+	});
+
+  map.setCenter(runnerLat, runnerLng);
 
 }
 
@@ -134,7 +118,6 @@ function bomberMap(){
 		socketGlo.emit('bomberCompare', data);
 
 		socket.on('bomberBomb', function (data) {
-	  	console.log('bomber blast!')
 			var targetCenter = new google.maps.LatLng(data.lat,data.lng);
 			var blastRadius = data.radius;
 			var blastBorder = data.border1;
