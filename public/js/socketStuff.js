@@ -1,5 +1,6 @@
 var socket = io();
 
+
 var runnerId = document.getElementById('runner');
 var bomberId = document.getElementById('bomber');
 
@@ -25,6 +26,11 @@ function startGame() {
 	socket.emit('rolez', localRole);
 };
 
+function removeTitle() {
+	 $('#titlePage').detach();
+};
+
+
 runnerId.addEventListener("click", runnerMe, false);
 bomberId.addEventListener("click", bomberMe, false);
 startId.addEventListener("click", startGame, false);
@@ -36,15 +42,19 @@ socket.on('receiveRoles', function (data) {
 		console.log("Waiting for bomber");
 		socket.on('startDaGame', function (data2) {
 			console.log("Starting game now R");
+			removeTitle();
 			// Remove everything on top
 			// Load map
+			initializeMap();
 			// Load geoLocation
 		});		
 
 	} else if ( data == "bomber"){
 		console.log('Waiting for runner');
 		socket.on('startDaGame', function (data2) {
+			removeTitle();
 			// Remove everything on top
+			initializeMap();
 			// Load map
 			console.log("Starting game now P");			
 		});

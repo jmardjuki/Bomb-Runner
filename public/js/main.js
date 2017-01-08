@@ -1,7 +1,9 @@
 "use strict"
 
-new GMaps({
-  div: '#map',
-  lat: -12.043333,
-  lng: -77.028333
-});
+function initializeMap() {
+	new GMaps({
+	  div: '#map',
+	  lat: -12.043333,
+	  lng: -77.028333
+	});
+}
