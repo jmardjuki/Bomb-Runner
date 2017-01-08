@@ -19,6 +19,8 @@ const io = socketIO(server);
 var bomberPresent = false;
 var runnerPresent = false;
 
+var runnerLoc = {lat: NaN, lng: NaN};
+
 io.on('connection', function (socket) {
 	socket.on('disconnect', () => console.log('Client disconnected'));	
   socket.on('rolez', function (data) {
@@ -27,10 +29,6 @@ io.on('connection', function (socket) {
   			runnerPresent = true; // Need to detect when user not here anymore
   			socket.emit('receiveRoles', "runner");
   			// if both ok, tell both to start
-  			if ( runnerPresent == true) {
-  				console.log("top kek");
-  			}
-
   			if ( bomberPresent == true ) {
   				socket.emit('startDaGame', "true");
   			}
@@ -53,7 +51,15 @@ io.on('connection', function (socket) {
   	else {
   		// No roles selected
   	}
-  });  
+  });
+  // Keep updating the location
+  socket.on('runnerLocation', function (data) {
+  	console.log(data);
+  	runnerLoc.lat = data.lat;
+  	runnerLoc.lng = data.lng;
+  });
+
 });
 
+// Heroku doesn't allow websocket?
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);

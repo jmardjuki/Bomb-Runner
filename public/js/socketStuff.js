@@ -47,6 +47,8 @@ socket.on('receiveRoles', function (data) {
 			// Load map
 			initializeMap();
 			// Load geoLocation
+			runnerRun(socket);
+
 		});		
 
 	} else if ( data == "bomber"){
