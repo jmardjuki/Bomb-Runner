@@ -46,6 +46,10 @@ function runnerRun(socket) {
 	console.log("runnerRun called")
 	getLocationUpdate();
 	socketGlo = socket;
+	socket.on('winGG', function (data) {
+		alert("GG!");
+	});	
+
 }
 // Gameplay Mechanics //
 
@@ -116,6 +120,10 @@ function bomberMap(){
 	  var targetlng = event.latLng.lng();
 		var data = {lat: targetlat, lng: targetlng};
 		socketGlo.emit('bomberCompare', data);
+
+		socket.on('winGG', function (data) {
+			alert("You hit the target! Game is finish. GG!");
+	  });	
 
 		socket.on('bomberBomb', function (data) {
 			var targetCenter = new google.maps.LatLng(data.lat,data.lng);

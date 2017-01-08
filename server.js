@@ -96,6 +96,7 @@ io.on('connection', function (socket) {
 		};
 
 		var distance = getDistance(bomberLoc, runnerLoc);
+		var win = false;
 
     if ( (distance - blastRadius) >= 500){
       blastBorder = "#00FF00";
@@ -115,13 +116,18 @@ io.on('connection', function (socket) {
     else if (distance < blastRadius){
 		 	blastBorder = "#FF0000";
 		  blastColor = "#FF0000";
+		  win = true;
 		}
 
     console.log(distance - blastRadius);
 
 		var replyData = {lat: bomberLoc.lat, lng: bomberLoc.lng, radius: blastRadius, colour: blastColor, border1: blastBorder};
-
   	io.sockets.emit('bomberBomb', replyData);
+		if ( win == true ){
+			io.sockets.emit('winGG', "win");
+			console.log("Game finishes");
+			win = false;	// + do something else to reset
+		}
 
   });
 
