@@ -62,8 +62,8 @@ io.on('connection', function (socket) {
   	runnerLoc.lng = data.lng;
   });
   socket.on('bomberInit', function (data) {	
-	  var bombLat = runnerLoc.lat.toFixed(5);
-	  var bombLng = runnerLoc.lng.toFixed(5);  	
+	  var bombLat = runnerLoc.lat.toFixed(20);
+	  var bombLng = runnerLoc.lng.toFixed(20);  	
 	  var data = JSON.stringify({lat: bombLat, lng: bombLng});
 	  socket.emit('bomberInitReply', data);
 
@@ -76,8 +76,8 @@ io.on('connection', function (socket) {
   	bomberLoc.lng = data.lng;
 
 		var blastRadius = 50;
-		var blastBorder = "#0000FF";
-		var blastColor = "#0000FF";
+		var blastBorder;
+		var blastColor;
 
 		var rad = function(x) {
 			return x * Math.PI / 180;
@@ -97,16 +97,27 @@ io.on('connection', function (socket) {
 
 		var distance = getDistance(bomberLoc, runnerLoc);
 
+    if ( (distance - blastRadius) >= 500){
+      blastBorder = "#00FF00";
+      blastColor = "#00FF00";
+    }
+
 		if ( (distance - blastRadius) < 500 && (distance - blastRadius) > 300){
 			blastBorder = "#FFFF00";
 		  blastColor = "#FFFF00";
-		} else if ( (distance - blastRadius) < 300 && (distance - blastRadius) < 500){
+		} 
+
+    else if ( (distance - blastRadius) < 300 && (distance - blastRadius) > 0){
 		 	blastBorder = "#FCA500";
 		  blastColor = "#FCA500";
-		} else if (distance < blastRadius && (distance - blastRadius) < 50){
+		} 
+
+    else if (distance < blastRadius){
 		 	blastBorder = "#FF0000";
 		  blastColor = "#FF0000";
 		}
+
+    console.log(distance - blastRadius);
 
 		var replyData = {lat: bomberLoc.lat, lng: bomberLoc.lng, radius: blastRadius, colour: blastColor, border1: blastBorder};
 
