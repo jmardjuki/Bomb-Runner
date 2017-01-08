@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io();
 
 var runnerId = document.getElementById('runner');
 var bomberId = document.getElementById('bomber');

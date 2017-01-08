@@ -14,9 +14,50 @@ const server = express()
 
 const io = socketIO(server);
 
-io.on('connection', (socket) => {
-  console.log('Client connected');
-  socket.on('disconnect', () => console.log('Client disconnected'));
+// Heroku doesn't allow websocket
+io.configure(function () {  
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
+var bomberPresent = false;
+var runnerPresent = false;
+
+io.on('connection', function (socket) {
+	socket.on('disconnect', () => console.log('Client disconnected'));	
+  socket.on('rolez', function (data) {
+  	if (data == "runner") {
+  		if (runnerPresent == false) {
+  			runnerPresent = true; // Need to detect when user not here anymore
+  			socket.emit('receiveRoles', "runner");
+  			// if both ok, tell both to start
+  			if ( runnerPresent == true) {
+  				console.log("top kek");
+  			}
+
+  			if ( bomberPresent == true ) {
+  				socket.emit('startDaGame', "true");
+  			}
+  		} else {
+  			// Later if possible; if already has a runner
+  		}
+  	}
+  	else if (data == "bomber") {
+  		if (bomberPresent == false) {
+  			bomberPresent = true; // Need to detect when user not here anymore
+  			socket.emit('receiveRoles', "bomber");
+  			// if both ok, tell both to start
+  			if ( runnerPresent == true ) {
+  				io.sockets.emit('startDaGame', "isTrue");
+  			}  			
+  		} else {
+
+  		}
+  	}
+  	else {
+  		// No roles selected
+  	}
+  });  
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
