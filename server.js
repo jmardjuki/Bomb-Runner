@@ -41,6 +41,7 @@ function updateTime() {
         io.sockets.emit('daTimer', seconds);
         console.log(seconds);
     } else {
+        io.sockets.emit('showme', runnerLoc);
         io.sockets.emit('daTimer', "zero");
         clearInterval(counter);
     }

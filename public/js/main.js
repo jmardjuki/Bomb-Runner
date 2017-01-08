@@ -50,6 +50,13 @@ function initMapBomber(socket) {
 			$("#disTimer").text(data);
 		}
 	});	  
+	socket.on('showme', function (data) {
+		console.log("Runner's real location: " + data.lat + " " + data.lng)
+			map.addMarker({
+			  lat: data.lat,
+			  lng: data.lng
+			});
+	});
 }
 
 var socketGlo;
@@ -159,9 +166,11 @@ function bomberMap(){
 	      strokeWeight: 2,
 	      fillColor: blastColor,
 	      fillOpacity: 0.2
-		  });			
+		  });		
+
 	  });	
 
+		
 	  
 	  console.log(event.latLng.lat() + "," + event.latLng.lng());
   });
