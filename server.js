@@ -97,8 +97,8 @@ io.on('connection', function (socket) {
   	runnerLoc.lng = data.lng;
   });
   socket.on('bomberInit', function (data) {	
-	  var bombLat = runnerLoc.lat.toFixed(20);
-	  var bombLng = runnerLoc.lng.toFixed(20);  	
+	  var bombLat = runnerLoc.lat.toFixed(5);
+	  var bombLng = runnerLoc.lng.toFixed(5);  	
 	  var data = JSON.stringify({lat: bombLat, lng: bombLng});
 	  socket.emit('bomberInitReply', data);
 
