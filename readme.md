@@ -26,6 +26,7 @@ The game consist of two player, one would act as the runner, and one as the bomb
 Note: Application interface is not that mobile friendly, therefore some demo are done on PC
 
 Choosing role
+
 ![alt text](http://i.imgur.com/aGXtsoh.png "titlePage_choosing")
 
 For privacy reason, geolocation for the screenshoot purpose was spoofed using Chrome Dev Tools
