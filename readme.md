@@ -26,8 +26,13 @@ The game consist of two player, one would act as the runner, and one as the bomb
 Note: Application interface is not that mobile friendly, therefore some demo are done on PC
 
 ![alt text](http://i.imgur.com/lI6lah6.png "title_page")
+
 This is the game main page
+
 ![alt text](http://i.imgur.com/JN4LCK4.png "title_page")
+
 Choosing role
+
 ![alt text](http://i.imgur.com/Zxgxahs.png "title_page")
+
 For privacy reason, geolocation of this was spoofed using Chrome Dev Tools
