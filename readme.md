@@ -1,7 +1,7 @@
 # Bomb Runner
 #### SFU CSSS API Challenge Hackathon First Prize Winner
 ## Introduction
-This is a simple two player game created during the 24 hour Hhackthon "SFU CSSS API Challenge" which was held on 7th to 8th of January at Simon Fraser University. This year's API to be challenged is the Google Map API.
+This is a simple two player game created during the 24 hour hackthon "SFU CSSS API Challenge" which was held on 7th to 8th of January at Simon Fraser University. This year's API to be challenged is the Google Map API.
 
 The idea, and mechanism of the game was developed on the spot as we go thru each checkpoints. Balancing and overall application improvement might be implemented in the future. Currently this application only works for exactly two players, one runner, and one bomber as room faeature has not been implemented.
 
