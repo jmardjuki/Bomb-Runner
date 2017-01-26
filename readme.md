@@ -3,7 +3,7 @@
 ## Introduction
 This is a simple two player game created during the 24 hour hackthon "SFU CSSS API Challenge" which was held on 7th to 8th of January at Simon Fraser University. This year's API to be challenged is the Google Map API.
 
-The idea, and mechanism of the game was developed on the spot as we go thru each checkpoints. Balancing and overall application improvement might be implemented in the future. Currently this application only works for exactly two players, one runner, and one bomber as room faeature has not been implemented.
+The idea, and mechanism of the game was developed on the spot as we go thru each checkpoints. Balancing and overall application improvement might be implemented in the future. Currently this application only works for exactly two players, one runner, and one bomber as room feature has not been implemented.
 
 Application is currently hosted on Heroku:
 https://api-potg.herokuapp.com/
@@ -23,7 +23,7 @@ Created by
 ## Gameplay
 The game consist of two player, one would act as the runner, and one as the bomber. Runner 's target is to avoid the bomb drop by keep running away until the time limit passed. Bomber goal is to drop bomb on the runner within the time limit given. To make the game more balanced, both the bomber and the runner would be able to see how far off the bomber dropped the bomb by seeing the colour of the circle. This will allow both player to make informative decision on the next step they take.
 
-## Screeshot:
+## Screeshot
 
 Note: Application interface is not that mobile friendly, therefore some demo are done on PC
 
