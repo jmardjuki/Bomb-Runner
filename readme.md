@@ -13,6 +13,8 @@ Built using:
 + Socket.IO
 + Google Maps API
 + Geolocation API
++ [gmaps.js](https://github.com/hpneo/gmaps)
++ [Buttons](https://github.com/alexwolfe/Buttons)
 
 Created by
 + Mardjuki, Janet ([@jmardjuki](https://github.com/jmardjuki))
