@@ -19,7 +19,7 @@ Created by
 + Ngo, Thomas ([@TechieWidget](https://github.com/TechieWidget))
 
 ## Gameplay
-The game consist of two player, one would act as the runner, and one as the bomber. Runner 's target is to avoid the bomb drop by keep running away until the time limit passed. Bomber goal is to drop bomb on the runner within the time limit given. To make the game more balanced, they would be able to see how far off they dropped the bomb by seeing the colour dropped, thus, alowing to drop the next bomb with some information.
+The game consist of two player, one would act as the runner, and one as the bomber. Runner 's target is to avoid the bomb drop by keep running away until the time limit passed. Bomber goal is to drop bomb on the runner within the time limit given. To make the game more balanced, both the bomber and the runner would be able to see how far off the bomber dropped the bomb by seeing the colour of the circle. This will allow both player to make informative decision on the next step they take.
 
 ## Screeshot:
 
