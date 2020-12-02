@@ -9,7 +9,8 @@ Application is currently hosted on Heroku:
 https://api-potg.herokuapp.com/
 
 Built using:
-+ Node.js
++ NodeJS
++ ExpressJS
 + Socket.IO
 + Google Maps API
 + Geolocation API
